@@ -4,46 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Garden Command Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* CSS VARIABLES PARA SA MADALING PAGBABAGO */
         :root {
-            --primary: #15803d;
-            --sidebar-dark: #111827;
-            --bg-light: #f3f4f6;
-            --accent: #22c55e;
+            --primary-green: #15803d;
+            --dark-sidebar: #111827;
+            --bg-body: #f3f4f6;
             --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        body { 
-            background-color: var(--bg-light); 
-            display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- SIDEBAR --- */
+        body {
+            background-color: var(--bg-body);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR NAVIGATION --- */
         .sidebar {
             width: 260px;
-            background: var(--sidebar-dark);
+            background-color: var(--dark-sidebar);
             color: white;
             padding: 25px 20px;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            position: fixed;
+            height: 100%;
             overflow-y: auto;
         }
 
-        .logo { text-align: center; margin-bottom: 35px; }
-        .logo img { width: 130px; filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.3)); }
+        .logo-section {
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo-section img {
+            width: 130px;
+            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.4));
+        }
 
         .nav-header {
-            font-size: 11px; 
-            color: #4b5563; 
-            margin: 20px 0 10px 10px; 
-            letter-spacing: 1.2px;
+            font-size: 11px;
+            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 20px 0 10px 10px;
             font-weight: 700;
         }
 
@@ -51,28 +69,30 @@
             display: flex;
             align-items: center;
             padding: 12px 15px;
-            color: #9ca3af;
+            color: #d1d5db;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 5px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
-        .nav-link:hover { background: rgba(34, 197, 94, 0.15); color: #22c55e; transform: translateX(5px); }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #22c55e;
+            padding-left: 20px;
+        }
 
         /* --- MAIN VIEW --- */
-        .main-view { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            overflow-y: auto; 
-            position: relative; 
+        .main-content {
+            flex: 1;
+            margin-left: 260px; /* Kapantay ng sidebar width */
+            display: flex;
+            flex-direction: column;
         }
 
         header {
-            background: var(--white);
+            background-color: var(--white);
             height: 70px;
             padding: 0 40px;
             display: flex;
@@ -84,185 +104,192 @@
             z-index: 100;
         }
 
-        .clock { 
-            font-weight: 700; 
-            color: var(--primary); 
+        .clock-box {
             background: #f0fdf4;
-            padding: 8px 16px;
+            color: var(--primary-green);
+            padding: 8px 20px;
             border-radius: 50px;
+            font-weight: 700;
             font-size: 14px;
             border: 1px solid #dcfce7;
         }
 
-        /* --- CONTENT AREA --- */
-        .container { 
-            padding: 40px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            width: 100%;
-        }
-
         /* --- TOOLBAR DOCK --- */
-        .toolbar { 
-            display: flex; 
-            gap: 15px; 
-            padding-bottom: 40px; 
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            padding: 40px 40px 20px 40px;
             flex-wrap: wrap;
-            justify-content: flex-start;
-        }
-        
-        .tool-btn {
-            width: 70px; 
-            height: 70px; 
-            background: var(--white); 
-            border-radius: 18px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            border: 1px solid #e5e7eb; 
-            text-decoration: none; 
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        
-        .tool-btn img { width: 45px; height: 45px; object-fit: contain; }
-        .tool-btn:hover { 
-            border-color: var(--primary); 
-            transform: translateY(-5px) scale(1.05); 
-            box-shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.2); 
         }
 
-        /* --- SECTION GRID --- */
-        .section-header { 
-            margin: 10px 0 20px 0; 
-            font-size: 20px; 
-            color: var(--sidebar-dark); 
-            font-weight: 800;
+        .tool-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--white);
+            border-radius: 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 20px; 
-            margin-bottom: 50px;
-        }
-        
-        .card {
-            background: var(--white); 
-            padding: 20px; 
-            border-radius: 16px; 
+            justify-content: center;
             border: 1px solid #e5e7eb;
-            text-decoration: none; 
-            color: var(--sidebar-dark); 
-            display: flex; 
-            align-items: center; 
+            text-decoration: none;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tool-btn img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 15px rgba(21, 128, 61, 0.15);
+        }
+
+        /* --- CONTENT CONTAINER --- */
+        .container {
+            padding: 20px 40px 60px 40px;
+            max-width: 1400px;
+        }
+
+        .section-header {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 40px 0 20px 0;
+            border-left: 5px solid var(--primary-green);
+            padding-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
             gap: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02); 
-            transition: all 0.2s ease;
+            transition: 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .card:hover { 
-            transform: translateY(-3px); 
-            border-color: var(--primary); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
-            background: #fdfdfd;
+        .card:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            transform: scale(1.02);
+            background: #fafafa;
         }
 
-        .card-icon { 
-            font-size: 24px; 
-            width: 50px; 
-            height: 50px; 
-            background: #f3f4f6; 
+        .card-icon {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            background: #f3f4f6;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .card-info strong { display: block; font-size: 15px; margin-bottom: 2px; }
-        .card-info p { font-size: 12px; color: #6b7280; }
+        .card-info strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
 
-        /* Mobile Adjustments */
-        @media (max-width: 850px) {
+        .card-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
             .sidebar { display: none; }
-            header { padding: 0 20px; }
-            .container { padding: 20px; }
-            .grid { grid-template-columns: 1fr; }
+            .main-content { margin-left: 0; }
+            header, .toolbar, .container { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
-        <div class="logo"><img src="https://i.imgur.com/gFFL080.png"></div>
+        <div class="logo-section">
+            <img src="https://i.imgur.com/gFFL080.png" alt="Logo">
+        </div>
         <nav>
-            <div class="nav-header">Reporting & Ops</div>
+            <div class="nav-header">Most Viewed</div>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-JZKnXuDj_Rdc2-gtrD7pWdMcpqiFjBEdlxniRVHVuU3BbQ/viewform" target="_blank" class="nav-link">📊 EOD Report</a>
             <a href="https://docs.google.com/spreadsheets/d/19DC2_6n3iP3621yzsnkj1ihSgDk_FyvDyhy8IxyXsCE/edit" target="_blank" class="nav-link">👥 Active Clients</a>
-            <a href="https://docs.google.com/spreadsheets/d/19fFHogL9xT2_IWSGF92d0HhT02oE5qAnFv9tLZBpIi4/edit" target="_blank" class="nav-link">🚚 Fleet Tracker</a>
 
-            <div class="nav-header">Admin & SOP</div>
+            <div class="nav-header">Administrative</div>
             <a href="https://docs.google.com/document/d/10vbwLFoDObrQIzl7QZE3KzEiUEK2AeoaBOKQ1rlDGvw/edit" target="_blank" class="nav-link">🧠 Admin SOP</a>
             <a href="https://docs.google.com/document/d/1of6N9AWggZ96SlNE06XaQDO60uJurntYsoTBfWXglE8/edit" target="_blank" class="nav-link">🚜 Field Guide</a>
-            <a href="https://docs.google.com/document/d/1S5o2luP-g-nAg8HyIs_JKSX3GsWJKSqHnVTbov0LYbs/edit" target="_blank" class="nav-link">💬 Comms SOP</a>
         </nav>
     </aside>
 
-    <main class="main-view">
+    <main class="main-content">
         <header>
-            <div class="clock" id="clock">Loading...</div>
-            <div style="font-size: 13px; font-weight: 600; color: #6b7280;">Green Garden Portal</div>
+            <h2 style="font-weight: 700;">Service Portal</h2>
+            <div class="clock-box" id="clock">Loading...</div>
         </header>
 
-        <div class="container">
-            <div class="toolbar">
-                <a href="https://my.golmn.com/lmn/" target="_blank" class="tool-btn" title="LMN"><img src="https://i.imgur.com/0ZoNM0S.png"></a>
-                <a href="https://track.onestepgps.com/v3/ux/map/device" target="_blank" class="tool-btn" title="OneStep GPS"><img src="https://i.imgur.com/YkcnASY.jpeg"></a>
-                <a href="https://portal.coastpay.com/" target="_blank" class="tool-btn" title="CoastPay"><img src="https://i.imgur.com/hzJmEvU.png"></a>
-                <a href="https://accounts.intuit.com/" target="_blank" class="tool-btn" title="Intuit"><img src="https://i.imgur.com/Ki2MRH0.png"></a>
-                <a href="https://app-na2.hubspot.com/" target="_blank" class="tool-btn" title="HubSpot"><img src="https://i.imgur.com/Qzzj8tw.png"></a>
-                <a href="https://www.chase.com/" target="_blank" class="tool-btn" title="Chase"><img src="https://i.imgur.com/gR74mO9.png"></a>
-                <a href="https://ring.com/users/sign_in" target="_blank" class="tool-btn" title="Ring"><img src="https://i.imgur.com/eHgyJTI.png"></a>
-                <a href="https://chatgpt.com/" target="_blank" class="tool-btn" title="ChatGPT"><img src="https://i.imgur.com/y2I6zCb.jpeg"></a>
-                <a href="https://drive.google.com/drive/folders/0AIeYnvTbrMFNUk9PVA" target="_blank" class="tool-btn" title="Google Drive"><img src="https://i.imgur.com/lErENId.png"></a>
-            </div>
+        <div class="toolbar">
+            <a href="https://my.golmn.com/lmn/" target="_blank" class="tool-btn" title="LMN"><img src="https://i.imgur.com/0ZoNM0S.png"></a>
+            <a href="https://track.onestepgps.com/v3/ux/map/device" target="_blank" class="tool-btn" title="GPS"><img src="https://i.imgur.com/YkcnASY.jpeg"></a>
+            <a href="https://portal.coastpay.com/" target="_blank" class="tool-btn" title="CoastPay"><img src="https://i.imgur.com/hzJmEvU.png"></a>
+            <a href="https://accounts.intuit.com/" target="_blank" class="tool-btn" title="Quickbooks"><img src="https://i.imgur.com/Ki2MRH0.png"></a>
+            <a href="https://app-na2.hubspot.com/" target="_blank" class="tool-btn" title="HubSpot"><img src="https://i.imgur.com/Qzzj8tw.png"></a>
+            <a href="https://www.chase.com/" target="_blank" class="tool-btn" title="Chase Bank"><img src="https://i.imgur.com/gR74mO9.png"></a>
+            <a href="https://ring.com/users/sign_in" target="_blank" class="tool-btn" title="Ring"><img src="https://i.imgur.com/eHgyJTI.png"></a>
+            <a href="https://chatgpt.com/" target="_blank" class="tool-btn" title="ChatGPT"><img src="https://i.imgur.com/y2I6zCb.jpeg"></a>
+            <a href="https://drive.google.com/drive/folders/0AIeYnvTbrMFNUk9PVA" target="_blank" class="tool-btn" title="Google Drive"><img src="https://i.imgur.com/lErENId.png"></a>
+        </div>
 
-            <div class="section-header">🧠 Admin / SOP / Guides</div>
+        <div class="container">
+            
+            <div class="section-header">🧠 Admin & SOP Guides</div>
             <div class="grid">
                 <a class="card" href="https://docs.google.com/document/d/10vbwLFoDObrQIzl7QZE3KzEiUEK2AeoaBOKQ1rlDGvw/edit" target="_blank">
                     <div class="card-icon">📄</div>
-                    <div class="card-info"><strong>Admin Team Guide</strong><p>Employee Guide - Admin</p></div>
+                    <div class="card-info"><strong>Admin Team Guide</strong><p>Employee Guide - Admin Team</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/document/d/1of6N9AWggZ96SlNE06XaQDO60uJurntYsoTBfWXglE8/edit" target="_blank">
                     <div class="card-icon">🚜</div>
-                    <div class="card-info"><strong>Field Crew SOP</strong><p>Employee Guide - Field</p></div>
+                    <div class="card-info"><strong>Field Crew SOP</strong><p>Employee Guide - Field Crews</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/document/d/1S5o2luP-g-nAg8HyIs_JKSX3GsWJKSqHnVTbov0LYbs/edit" target="_blank">
                     <div class="card-icon">💬</div>
-                    <div class="card-info"><strong>Comms SOP</strong><p>Communication Protocols</p></div>
+                    <div class="card-info"><strong>Comms SOP</strong><p>Communication Standards</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/document/d/11aonoolHgvSB85LIAJtOrtdXP18LZea4sw8aN3Nocy4/edit" target="_blank">
                     <div class="card-icon">📈</div>
-                    <div class="card-info"><strong>Sales SOP</strong><p>Sales Process & Standards</p></div>
+                    <div class="card-info"><strong>Sales SOP</strong><p>Sales Cycle & Management</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/document/d/1o8wUuIpxmzmTFhTzQC_rNl9-nTFwTQVQ9DndMfsJHwQ/edit" target="_blank">
                     <div class="card-icon">👤</div>
                     <div class="card-info"><strong>New Hire SOP</strong><p>Onboarding Procedures</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/document/d/1hpDl9r75jNz25nmov2zI5dYjvUHZBvFcxNlav_OXeb4/edit" target="_blank">
-                    <div class="card-icon">🤝</div>
-                    <div class="card-info"><strong>Field Meetings SOP</strong><p>Meeting Standards</p></div>
+                    <div class="card-icon">🏢</div>
+                    <div class="card-info"><strong>Field Meetings</strong><p>Meeting Protocols</p></div>
                 </a>
             </div>
 
-            <div class="section-header">📊 Forms / Reporting</div>
+            <div class="section-header">📊 Reporting & Forms</div>
             <div class="grid">
                 <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSd-JZKnXuDj_Rdc2-gtrD7pWdMcpqiFjBEdlxniRVHVuU3BbQ/viewform" target="_blank">
                     <div class="card-icon">📝</div>
-                    <div class="card-info"><strong>EOD Report</strong><p>Daily Reporting Submission</p></div>
+                    <div class="card-info"><strong>EOD Report</strong><p>Daily Activity Submission</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLScJaR6RJFuPLQvtwfEboczQgcUbpAlmkQGp_a-unWdkdoq6aw/viewform" target="_blank">
                     <div class="card-icon">⏱️</div>
@@ -270,45 +297,46 @@
                 </a>
                 <a class="card" href="https://docs.google.com/forms/d/1b78G6rkZJcVEFv9fb9vtRITcMvsW9wmw7fVN4zi4yTY/edit" target="_blank">
                     <div class="card-icon">📅</div>
-                    <div class="card-info"><strong>Attendance Tracker</strong><p>Employee Attendance Records</p></div>
+                    <div class="card-info"><strong>Attendance Tracker</strong><p>Daily Attendance Log</p></div>
                 </a>
             </div>
 
-            <div class="section-header">📈 Operations</div>
+            <div class="section-header">📈 Live Operations</div>
             <div class="grid">
                 <a class="card" href="https://docs.google.com/spreadsheets/d/19DC2_6n3iP3621yzsnkj1ihSgDk_FyvDyhy8IxyXsCE/edit" target="_blank">
                     <div class="card-icon">👥</div>
-                    <div class="card-info"><strong>Active Clients</strong><p>Live Database</p></div>
+                    <div class="card-info"><strong>Active Clients</strong><p>Master Client Database</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/spreadsheets/d/19fFHogL9xT2_IWSGF92d0HhT02oE5qAnFv9tLZBpIi4/edit" target="_blank">
                     <div class="card-icon">🚚</div>
-                    <div class="card-info"><strong>Fleet Tracker</strong><p>Vehicle Status & Logs</p></div>
+                    <div class="card-info"><strong>Fleet Tracker</strong><p>Vehicle Status & Data</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/spreadsheets/d/10xpcopHNTJcFxCGs9ZNuUnFA3ekVJVcUlJ_gl9OGQhw/edit" target="_blank">
                     <div class="card-icon">🧾</div>
-                    <div class="card-info"><strong>Invoice Master</strong><p>Financial Records</p></div>
+                    <div class="card-info"><strong>Invoice Master</strong><p>Financial Records Tracker</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/spreadsheets/d/1biEo0sPwOQE61FXNb5z27H9V2p3Xwi2VGTgQw2mo_ew/edit" target="_blank">
                     <div class="card-icon">👨‍🌾</div>
-                    <div class="card-info"><strong>Headcount</strong><p>Staff Records</p></div>
+                    <div class="card-info"><strong>Headcount</strong><p>HR & Staff Records</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/spreadsheets/d/1CGRRUNN9QIv60cWESrEx2IgCSIAisvcbyn2iyHZ7FfQ/edit" target="_blank">
                     <div class="card-icon">🎯</div>
-                    <div class="card-info"><strong>Scorecard</strong><p>KPI Metrics</p></div>
+                    <div class="card-info"><strong>Scorecard</strong><p>KPI Performance Data</p></div>
                 </a>
                 <a class="card" href="https://docs.google.com/spreadsheets/d/1zLpcjFFj3GgFilmGPmKHdlQxWkf6cruNSnEGUS7U9-I/edit" target="_blank">
                     <div class="card-icon">🏆</div>
-                    <div class="card-info"><strong>Field Performance</strong><p>Crew Performance Tracking</p></div>
+                    <div class="card-info"><strong>Field Performance</strong><p>Crew Tracking Metrics</p></div>
                 </a>
             </div>
 
-            <div class="section-header">📁 Storage</div>
+            <div class="section-header">📁 Global Storage</div>
             <div class="grid">
                 <a class="card" href="https://drive.google.com/drive/folders/1EXGz9Afrt5h2XYA5LWnwXfhRo55smrgy" target="_blank">
                     <div class="card-icon">💰</div>
-                    <div class="card-info"><strong>Billing Folder</strong><p>Drive Storage Access</p></div>
+                    <div class="card-info"><strong>Billing Folder</strong><p>Drive Records Storage</p></div>
                 </a>
             </div>
+
         </div>
     </main>
 
