@@ -11,56 +11,69 @@
             --sidebar-dark: #111827;
             --bg-light: #f3f4f6;
             --accent: #22c55e;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
-        body { background-color: var(--bg-light); display: flex; height: 100vh; }
+        body { 
+            background-color: var(--bg-light); 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
 
         /* --- SIDEBAR --- */
         .sidebar {
             width: 260px;
             background: var(--sidebar-dark);
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
             overflow-y: auto;
         }
 
-        .logo { text-align: center; margin-bottom: 30px; }
-        .logo img { width: 120px; filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.3)); }
+        .logo { text-align: center; margin-bottom: 35px; }
+        .logo img { width: 130px; filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.3)); }
+
+        .nav-header {
+            font-size: 11px; 
+            color: #4b5563; 
+            margin: 20px 0 10px 10px; 
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 10px 15px;
+            padding: 12px 15px;
             color: #9ca3af;
             text-decoration: none;
             border-radius: 10px;
             margin-bottom: 5px;
             font-size: 13px;
             font-weight: 500;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
 
-        .nav-link:hover { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
-
-        .nav-header {
-            font-size: 10px; 
-            color: #4b5563; 
-            margin: 15px 0 8px 10px; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .nav-link:hover { background: rgba(34, 197, 94, 0.15); color: #22c55e; transform: translateX(5px); }
 
         /* --- MAIN VIEW --- */
-        .main-view { flex: 1; display: flex; flex-direction: column; overflow-y: auto; position: relative; }
+        .main-view { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto; 
+            position: relative; 
+        }
 
         header {
-            background: white;
-            height: 65px;
+            background: var(--white);
+            height: 70px;
             padding: 0 40px;
             display: flex;
             align-items: center;
@@ -71,40 +84,112 @@
             z-index: 100;
         }
 
-        .clock { font-weight: 700; color: var(--primary); font-size: 14px; }
-
-        /* --- DASHBOARD HOME --- */
-        .content-container { padding: 30px 40px 60px; max-width: 1300px; margin: 0 auto; width: 100%; }
-        
-        .section-header { margin: 30px 0 15px 0; font-size: 18px; color: var(--sidebar-dark); font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        
-        .card {
-            background: white; padding: 20px; border-radius: 15px; border: 1px solid #e5e7eb;
-            text-decoration: none; color: var(--sidebar-dark); display: flex; align-items: center; gap: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: all 0.3s ease;
+        .clock { 
+            font-weight: 700; 
+            color: var(--primary); 
+            background: #f0fdf4;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            border: 1px solid #dcfce7;
         }
 
-        .card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
-
-        .card-icon { font-size: 24px; width: 45px; height: 45px; background: #f0fdf4; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        /* --- CONTENT AREA --- */
+        .container { 
+            padding: 40px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            width: 100%;
+        }
 
         /* --- TOOLBAR DOCK --- */
-        .toolbar { display: flex; gap: 15px; padding-bottom: 30px; flex-wrap: wrap; }
-        .tool-btn {
-            width: 70px; height: 70px; background: white; border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid #e5e7eb; text-decoration: none; transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        .toolbar { 
+            display: flex; 
+            gap: 15px; 
+            padding-bottom: 40px; 
+            flex-wrap: wrap;
+            justify-content: flex-start;
         }
+        
+        .tool-btn {
+            width: 70px; 
+            height: 70px; 
+            background: var(--white); 
+            border-radius: 18px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border: 1px solid #e5e7eb; 
+            text-decoration: none; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
         .tool-btn img { width: 45px; height: 45px; object-fit: contain; }
-        .tool-btn:hover { transform: translateY(-5px) scale(1.05); border-color: var(--primary); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .tool-btn:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.2); 
+        }
 
-        @media (max-width: 768px) {
+        /* --- SECTION GRID --- */
+        .section-header { 
+            margin: 10px 0 20px 0; 
+            font-size: 20px; 
+            color: var(--sidebar-dark); 
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 50px;
+        }
+        
+        .card {
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 16px; 
+            border: 1px solid #e5e7eb;
+            text-decoration: none; 
+            color: var(--sidebar-dark); 
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02); 
+            transition: all 0.2s ease;
+        }
+
+        .card:hover { 
+            transform: translateY(-3px); 
+            border-color: var(--primary); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+            background: #fdfdfd;
+        }
+
+        .card-icon { 
+            font-size: 24px; 
+            width: 50px; 
+            height: 50px; 
+            background: #f3f4f6; 
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-info strong { display: block; font-size: 15px; margin-bottom: 2px; }
+        .card-info p { font-size: 12px; color: #6b7280; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 850px) {
             .sidebar { display: none; }
             header { padding: 0 20px; }
-            .content-container { padding: 20px; }
+            .container { padding: 20px; }
             .grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -114,91 +199,130 @@
     <aside class="sidebar">
         <div class="logo"><img src="https://i.imgur.com/gFFL080.png"></div>
         <nav>
-            <div class="nav-header">Most Viewed</div>
+            <div class="nav-header">Reporting & Ops</div>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-JZKnXuDj_Rdc2-gtrD7pWdMcpqiFjBEdlxniRVHVuU3BbQ/viewform" target="_blank" class="nav-link">📊 EOD Report</a>
             <a href="https://docs.google.com/spreadsheets/d/19DC2_6n3iP3621yzsnkj1ihSgDk_FyvDyhy8IxyXsCE/edit" target="_blank" class="nav-link">👥 Active Clients</a>
-            
+            <a href="https://docs.google.com/spreadsheets/d/19fFHogL9xT2_IWSGF92d0HhT02oE5qAnFv9tLZBpIi4/edit" target="_blank" class="nav-link">🚚 Fleet Tracker</a>
+
             <div class="nav-header">Admin & SOP</div>
             <a href="https://docs.google.com/document/d/10vbwLFoDObrQIzl7QZE3KzEiUEK2AeoaBOKQ1rlDGvw/edit" target="_blank" class="nav-link">🧠 Admin SOP</a>
             <a href="https://docs.google.com/document/d/1of6N9AWggZ96SlNE06XaQDO60uJurntYsoTBfWXglE8/edit" target="_blank" class="nav-link">🚜 Field Guide</a>
-            
-            <div class="nav-header">Tools</div>
-            <a href="https://chatgpt.com/" target="_blank" class="nav-link">💬 ChatGPT</a>
-            <a href="https://drive.google.com/drive/folders/0AIeYnvTbrMFNUk9PVA" target="_blank" class="nav-link">📂 Main Drive</a>
+            <a href="https://docs.google.com/document/d/1S5o2luP-g-nAg8HyIs_JKSX3GsWJKSqHnVTbov0LYbs/edit" target="_blank" class="nav-link">💬 Comms SOP</a>
         </nav>
     </aside>
 
     <main class="main-view">
         <header>
-            <h2 style="font-size: 20px; font-weight: 700; color: #111827;">Green Garden Portal</h2>
             <div class="clock" id="clock">Loading...</div>
+            <div style="font-size: 13px; font-weight: 600; color: #6b7280;">Green Garden Portal</div>
         </header>
 
-        <div class="content-container">
+        <div class="container">
             <div class="toolbar">
                 <a href="https://my.golmn.com/lmn/" target="_blank" class="tool-btn" title="LMN"><img src="https://i.imgur.com/0ZoNM0S.png"></a>
                 <a href="https://track.onestepgps.com/v3/ux/map/device" target="_blank" class="tool-btn" title="OneStep GPS"><img src="https://i.imgur.com/YkcnASY.jpeg"></a>
                 <a href="https://portal.coastpay.com/" target="_blank" class="tool-btn" title="CoastPay"><img src="https://i.imgur.com/hzJmEvU.png"></a>
-                <a href="https://accounts.intuit.com/" target="_blank" class="tool-btn" title="Quickbooks"><img src="https://i.imgur.com/Ki2MRH0.png"></a>
+                <a href="https://accounts.intuit.com/" target="_blank" class="tool-btn" title="Intuit"><img src="https://i.imgur.com/Ki2MRH0.png"></a>
                 <a href="https://app-na2.hubspot.com/" target="_blank" class="tool-btn" title="HubSpot"><img src="https://i.imgur.com/Qzzj8tw.png"></a>
-                <a href="https://www.chase.com/" target="_blank" class="tool-btn" title="Chase Bank"><img src="https://i.imgur.com/gR74mO9.png"></a>
-                <a href="https://ring.com/users/sign_in" target="_blank" class="tool-btn" title="Ring Doorbell"><img src="https://i.imgur.com/eHgyJTI.png"></a>
+                <a href="https://www.chase.com/" target="_blank" class="tool-btn" title="Chase"><img src="https://i.imgur.com/gR74mO9.png"></a>
+                <a href="https://ring.com/users/sign_in" target="_blank" class="tool-btn" title="Ring"><img src="https://i.imgur.com/eHgyJTI.png"></a>
                 <a href="https://chatgpt.com/" target="_blank" class="tool-btn" title="ChatGPT"><img src="https://i.imgur.com/y2I6zCb.jpeg"></a>
                 <a href="https://drive.google.com/drive/folders/0AIeYnvTbrMFNUk9PVA" target="_blank" class="tool-btn" title="Google Drive"><img src="https://i.imgur.com/lErENId.png"></a>
             </div>
 
-            <div class="section-header">🧠 Administrative & SOPs</div>
+            <div class="section-header">🧠 Admin / SOP / Guides</div>
             <div class="grid">
-                <a href="https://docs.google.com/document/d/10vbwLFoDObrQIzl7QZE3KzEiUEK2AeoaBOKQ1rlDGvw/edit" target="_blank" class="card">
-                    <div class="card-icon">🧠</div>
-                    <div><strong>Admin Team Guide</strong><p style="font-size: 11px; color: gray;">Employee Guide - Admin</p></div>
+                <a class="card" href="https://docs.google.com/document/d/10vbwLFoDObrQIzl7QZE3KzEiUEK2AeoaBOKQ1rlDGvw/edit" target="_blank">
+                    <div class="card-icon">📄</div>
+                    <div class="card-info"><strong>Admin Team Guide</strong><p>Employee Guide - Admin</p></div>
                 </a>
-                <a href="https://docs.google.com/document/d/1of6N9AWggZ96SlNE06XaQDO60uJurntYsoTBfWXglE8/edit" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/document/d/1of6N9AWggZ96SlNE06XaQDO60uJurntYsoTBfWXglE8/edit" target="_blank">
                     <div class="card-icon">🚜</div>
-                    <div><strong>Field Crew SOP</strong><p style="font-size: 11px; color: gray;">Employee Guide - Field</p></div>
+                    <div class="card-info"><strong>Field Crew SOP</strong><p>Employee Guide - Field</p></div>
                 </a>
-                <a href="https://docs.google.com/document/d/1S5o2luP-g-nAg8HyIs_JKSX3GsWJKSqHnVTbov0LYbs/edit" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/document/d/1S5o2luP-g-nAg8HyIs_JKSX3GsWJKSqHnVTbov0LYbs/edit" target="_blank">
                     <div class="card-icon">💬</div>
-                    <div><strong>Comms SOP</strong><p style="font-size: 11px; color: gray;">Communication Standard</p></div>
+                    <div class="card-info"><strong>Comms SOP</strong><p>Communication Protocols</p></div>
                 </a>
-                <a href="https://docs.google.com/document/d/11aonoolHgvSB85LIAJtOrtdXP18LZea4sw8aN3Nocy4/edit" target="_blank" class="card">
-                    <div class="card-icon">🤝</div>
-                    <div><strong>Sales SOP</strong><p style="font-size: 11px; color: gray;">Sales Process & Workflow</p></div>
+                <a class="card" href="https://docs.google.com/document/d/11aonoolHgvSB85LIAJtOrtdXP18LZea4sw8aN3Nocy4/edit" target="_blank">
+                    <div class="card-icon">📈</div>
+                    <div class="card-info"><strong>Sales SOP</strong><p>Sales Process & Standards</p></div>
                 </a>
-                <a href="https://docs.google.com/document/d/1o8wUuIpxmzmTFhTzQC_rNl9-nTFwTQVQ9DndMfsJHwQ/edit" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/document/d/1o8wUuIpxmzmTFhTzQC_rNl9-nTFwTQVQ9DndMfsJHwQ/edit" target="_blank">
                     <div class="card-icon">👤</div>
-                    <div><strong>New Hire SOP</strong><p style="font-size: 11px; color: gray;">Onboarding Procedures</p></div>
+                    <div class="card-info"><strong>New Hire SOP</strong><p>Onboarding Procedures</p></div>
                 </a>
-                <a href="https://docs.google.com/document/d/1hpDl9r75jNz25nmov2zI5dYjvUHZBvFcxNlav_OXeb4/edit" target="_blank" class="card">
-                    <div class="card-icon">🏢</div>
-                    <div><strong>Field Meetings</strong><p style="font-size: 11px; color: gray;">Standard Meeting SOP</p></div>
+                <a class="card" href="https://docs.google.com/document/d/1hpDl9r75jNz25nmov2zI5dYjvUHZBvFcxNlav_OXeb4/edit" target="_blank">
+                    <div class="card-icon">🤝</div>
+                    <div class="card-info"><strong>Field Meetings SOP</strong><p>Meeting Standards</p></div>
                 </a>
             </div>
 
-            <div class="section-header">📊 Forms & Reporting</div>
+            <div class="section-header">📊 Forms / Reporting</div>
             <div class="grid">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-JZKnXuDj_Rdc2-gtrD7pWdMcpqiFjBEdlxniRVHVuU3BbQ/viewform" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSd-JZKnXuDj_Rdc2-gtrD7pWdMcpqiFjBEdlxniRVHVuU3BbQ/viewform" target="_blank">
                     <div class="card-icon">📝</div>
-                    <div><strong>EOD Report</strong><p style="font-size: 11px; color: gray;">Daily Reporting Form</p></div>
+                    <div class="card-info"><strong>EOD Report</strong><p>Daily Reporting Submission</p></div>
                 </a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScJaR6RJFuPLQvtwfEboczQgcUbpAlmkQGp_a-unWdkdoq6aw/viewform" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLScJaR6RJFuPLQvtwfEboczQgcUbpAlmkQGp_a-unWdkdoq6aw/viewform" target="_blank">
                     <div class="card-icon">⏱️</div>
-                    <div><strong>Timesheet Review</strong><p style="font-size: 11px; color: gray;">Weekly Hour Check</p></div>
+                    <div class="card-info"><strong>Timesheet Review</strong><p>Weekly Hour Verification</p></div>
                 </a>
-                <a href="https://docs.google.com/forms/d/1b78G6rkZJcVEFv9fb9vtRITcMvsW9wmw7fVN4zi4yTY/viewform" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/forms/d/1b78G6rkZJcVEFv9fb9vtRITcMvsW9wmw7fVN4zi4yTY/edit" target="_blank">
                     <div class="card-icon">📅</div>
-                    <div><strong>Attendance Tracker</strong><p style="font-size: 11px; color: gray;">Daily Attendance Log</p></div>
+                    <div class="card-info"><strong>Attendance Tracker</strong><p>Employee Attendance Records</p></div>
                 </a>
             </div>
 
             <div class="section-header">📈 Operations</div>
             <div class="grid">
-                <a href="https://docs.google.com/spreadsheets/d/19DC2_6n3iP3621yzsnkj1ihSgDk_FyvDyhy8IxyXsCE/edit" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/spreadsheets/d/19DC2_6n3iP3621yzsnkj1ihSgDk_FyvDyhy8IxyXsCE/edit" target="_blank">
                     <div class="card-icon">👥</div>
-                    <div><strong>Active Clients</strong><p style="font-size: 11px; color: gray;">Client Master Database</p></div>
+                    <div class="card-info"><strong>Active Clients</strong><p>Live Database</p></div>
                 </a>
-                <a href="https://docs.google.com/spreadsheets/d/19fFHogL9xT2_IWSGF92d0HhT02oE5qAnFv9tLZBpIi4/edit" target="_blank" class="card">
+                <a class="card" href="https://docs.google.com/spreadsheets/d/19fFHogL9xT2_IWSGF92d0HhT02oE5qAnFv9tLZBpIi4/edit" target="_blank">
                     <div class="card-icon">🚚</div>
-                    <div><strong>Fleet Tracker</strong><p style="font-size: 11px; color: gray;">Vehicle Status & Logs</p></div>
+                    <div class="card-info"><strong>Fleet Tracker</strong><p>Vehicle Status & Logs</p></div>
                 </a>
-                <a href="
+                <a class="card" href="https://docs.google.com/spreadsheets/d/10xpcopHNTJcFxCGs9ZNuUnFA3ekVJVcUlJ_gl9OGQhw/edit" target="_blank">
+                    <div class="card-icon">🧾</div>
+                    <div class="card-info"><strong>Invoice Master</strong><p>Financial Records</p></div>
+                </a>
+                <a class="card" href="https://docs.google.com/spreadsheets/d/1biEo0sPwOQE61FXNb5z27H9V2p3Xwi2VGTgQw2mo_ew/edit" target="_blank">
+                    <div class="card-icon">👨‍🌾</div>
+                    <div class="card-info"><strong>Headcount</strong><p>Staff Records</p></div>
+                </a>
+                <a class="card" href="https://docs.google.com/spreadsheets/d/1CGRRUNN9QIv60cWESrEx2IgCSIAisvcbyn2iyHZ7FfQ/edit" target="_blank">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-info"><strong>Scorecard</strong><p>KPI Metrics</p></div>
+                </a>
+                <a class="card" href="https://docs.google.com/spreadsheets/d/1zLpcjFFj3GgFilmGPmKHdlQxWkf6cruNSnEGUS7U9-I/edit" target="_blank">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-info"><strong>Field Performance</strong><p>Crew Performance Tracking</p></div>
+                </a>
+            </div>
+
+            <div class="section-header">📁 Storage</div>
+            <div class="grid">
+                <a class="card" href="https://drive.google.com/drive/folders/1EXGz9Afrt5h2XYA5LWnwXfhRo55smrgy" target="_blank">
+                    <div class="card-icon">💰</div>
+                    <div class="card-info"><strong>Billing Folder</strong><p>Drive Storage Access</p></div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function updateClock(){
+            const now = new Date();
+            const time = new Intl.DateTimeFormat("en-US", {
+                timeZone:"America/Los_Angeles",
+                hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:true
+            }).format(now);
+            document.getElementById("clock").innerText = "SEATTLE • " + time;
+        }
+        setInterval(updateClock,1000);
+        updateClock();
+    </script>
+</body>
+</html>
